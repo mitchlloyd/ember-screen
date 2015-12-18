@@ -1,7 +1,7 @@
 {
   "name": "ember-screen",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "A screen size service for Ember",
   "directories": {
     "doc": "doc",
     "test": "tests"
