@@ -13,7 +13,7 @@ export default Ember.Service.extend({
   },
 
   willDestroy() {
-    window.removeEvenListener('resize', this.resizeListener);
+    window.removeEventListener('resize', this.resizeListener);
   },
 
   width: computed('_width', function() {
