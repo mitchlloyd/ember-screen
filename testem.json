@@ -2,11 +2,15 @@
   "framework": "qunit",
   "test_page": "tests/index.html?hidepassed",
   "disable_watching": true,
-  "launch_in_ci": [
-    "PhantomJS"
-  ],
-  "launch_in_dev": [
-    "PhantomJS",
-    "Chrome"
-  ]
+
+  "launchers": {
+    "custom_chrome": {
+      "exe": ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "/usr/bin/google-chrome"],
+      "args": ["--disable-popup-blocking", "--user-data-dir=/tmp/testem.chrome", "--no-default-browser-check", "--no-first-run", "--ignore-certificate-errors", "--test-type"],
+      "protocol": "browser"
+    }
+  },
+
+  "launch_in_ci": ["custom_chrome"],
+  "launch_in_dev": ["custom_chrome"]
 }

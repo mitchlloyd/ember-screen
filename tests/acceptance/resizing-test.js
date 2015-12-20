@@ -1,11 +1,9 @@
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import Ember from 'ember';
-const { RSVP, run } = Ember;
 
 moduleForAcceptance('Acceptance | resizing', {
   beforeEach() {
-    this.popup = window.open('/', 'resizable', 'resizable=yes,width=100,height=100');
+    this.popup = window.open('index.html', 'resizable', 'resizable=yes,width=100,height=100');
   },
 
   afterEach() {
@@ -14,36 +12,48 @@ moduleForAcceptance('Acceptance | resizing', {
 });
 
 test('visiting /resizing', function(assert) {
+  waitForDimensions(this.popup, { width: "100", height: "100"});
+
   andThen(() => {
-    read(this.popup, 'width').then(function(value) {
-      assert.equal(value, "100", "Initial height is correct");
-    });
+    assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
+      isSmallAndUp: "false",
+      isMediumAndUp: "false",
+      isLargeAndUp: "false",
+      isExtraLargeAndUp: "false",
+
+      isExtraSmallAndDown: "true",
+      isSmallAndDown: "true",
+      isMediumAndDown: "true",
+      isLargeAndDown: "true"
+    }, "Initial values are correct");
+
+    // resizeBy is easier to work with than resizeTo
+    this.popup.resizeBy(800, 400);
+  });
+
+  waitForDimensions(this.popup, { width: "900", height: "500" });
+
+  andThen(() => {
+    assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
+      isSmallAndUp: "true",
+      isMediumAndUp: "true",
+      isLargeAndUp: "false",
+      isExtraLargeAndUp: "false",
+
+      isExtraSmallAndDown: "false",
+      isSmallAndDown: "false",
+      isMediumAndDown: "true",
+      isLargeAndDown: "true"
+    }, "Updated values are correct");
   });
 });
 
-function read(_window, term) {
-  return new RSVP.Promise(function(resolve, reject) {
-    let tries = 0;
+function serializeMediaQueries(doc) {
+  let data = {};
 
-    let polling = function() {
-      let dd = findDataDefinition($(_window.document), term);
-
-      if (dd.length) {
-        resolve(dd.text().trim());
-      }
-
-      if (tries > 100) {
-        reject();
-      } else {
-        tries = tries + 1;
-        run.later(polling, 10);
-      }
-    };
-
-    polling();
+  doc.find('#media-queries dt').toArray().forEach(function(dt) {
+    data[$(dt).text().trim()] = $(dt).next().text().trim();
   });
-}
 
-function findDataDefinition(doc, term) {
-  return doc.find(`dt:contains(${term}) + dd`);
+  return data;
 }
