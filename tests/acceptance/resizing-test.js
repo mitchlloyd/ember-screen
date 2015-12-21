@@ -3,7 +3,7 @@ import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | resizing', {
   beforeEach() {
-    this.popup = window.open('index.html', 'resizable', 'resizable=yes,width=100,height=100');
+    this.popup = window.open('/index.html', 'resizable', `resizable=yes,width=200,height=100`);
   },
 
   afterEach() {
@@ -12,7 +12,7 @@ moduleForAcceptance('Acceptance | resizing', {
 });
 
 test('visiting /resizing', function(assert) {
-  waitForDimensions(this.popup, { width: "100", height: "100"});
+  waitForDimensions(this.popup, { width: "200", height: "100"});
 
   andThen(() => {
     assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
@@ -28,7 +28,7 @@ test('visiting /resizing', function(assert) {
     }, "Initial values are correct");
 
     // resizeBy is easier to work with than resizeTo
-    this.popup.resizeBy(800, 400);
+    this.popup.resizeBy(700, 400);
   });
 
   waitForDimensions(this.popup, { width: "900", height: "500" });

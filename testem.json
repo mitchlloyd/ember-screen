@@ -5,7 +5,7 @@
 
   "launchers": {
     "custom_chrome": {
-      "exe": ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "/usr/bin/google-chrome"],
+      "exe": ["/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"],
       "args": ["--disable-popup-blocking", "--user-data-dir=/tmp/testem.chrome", "--no-default-browser-check", "--no-first-run", "--ignore-certificate-errors", "--test-type"],
       "protocol": "browser"
     }
