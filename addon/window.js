@@ -1,8 +1,8 @@
 export default class {
   constructor() {
     this.listeners = [];
-    this.nativeListener = this._windowDidResize.bind(this);
-    window.addEventListener('resize', this.nativeListener);
+    this.resizeListener = this._windowDidResize.bind(this);
+    window.addEventListener('resize', this.resizeListener);
   }
 
   onSizeUpdate(listener) {
@@ -23,7 +23,7 @@ export default class {
   }
 
   teardown() {
-    window.removeEventListener('resize', this.nativeListener);
+    window.removeEventListener('resize', this.resizeListener);
   }
 
   matchesMediaQuery(query) {
