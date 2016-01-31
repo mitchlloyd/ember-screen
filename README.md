@@ -1,4 +1,4 @@
-# Ember-screen
+# Ember Screen
 
 [ ![Codeship Status for mitchlloyd/ember-screen](https://codeship.com/projects/efc09170-87ef-0133-2329-32f8e6acffcd/status?branch=master)](https://codeship.com/projects/123088)
 
@@ -66,6 +66,32 @@ export default EmberScreen.extend({
   isDesktop: breakpoint('(min-width: 480px)')
 });
 ```
+
+## Testing Media Queries
+
+Creating automated tests for different screen sizes is often neglected because
+it is not practical to programmatically resize a web browser during tests. Ember
+Screen lets you to stub [media features](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries#Media_features)
+to run tests that are integrated with your screen service logic.
+
+```javascript
+// An example acceptance test
+
+test('shows large logo on HD tv', function(assert) {
+  let screen = this.application.__container__.lookup('service:screen');
+  screen.stubMediaFeatures({ type: 'tv', width: 1920 });
+
+  visit('/');
+
+  andThen(function() {
+    assert.equal(find('.logo-large').length, 1, "HD TVs have large logo");
+  });
+});
+```
+
+This feature uses [css-mediaquery](https://github.com/ericf/css-mediaquery) to
+parse your configured `breakpoints` and see if they match with the stubbed
+values.
 
 ## Running the Tests for this Addon
 

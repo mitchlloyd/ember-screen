@@ -13,7 +13,7 @@ test('it updates width and height when screen dimensions change', function(asser
     this.observerCount += 1;
   });
 
-  this.win.dimensions = { width: 100, height: 200 };
+  this.win.stubMediaFeatures({ width: 100, height: 200 });
 
   assert.equal(this.observerCount, 1, "observer was called once");
   assert.equal(this.screen.get('width'), 100, "size was updated");
@@ -30,13 +30,13 @@ test('it updates media query properties when screen dimensions change', function
   });
 
   this.win.matchesMediaQuery = function() { return false; };
-  this.win.dimensions = { width: 100, height: 200 };
+  this.win.stubMediaFeatures({ width: 100, height: 200 });
 
   assert.equal(this.observerCount, 1, "observer was called once");
   assert.equal(this.screen.get('isSmallAndUp'), false, "media query returns initial stubbed value");
 
   this.win.matchesMediaQuery = function() { return true; };
-  this.win.dimensions = { width: 200, height: 200 };
+  this.win.stubMediaFeatures({ width: 200, height: 200 });
 
   assert.equal(this.observerCount, 2, "observer was called again");
   assert.equal(this.screen.get('isSmallAndUp'), true, "media query returns new stubbed value");

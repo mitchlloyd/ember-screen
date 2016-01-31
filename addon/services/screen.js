@@ -15,6 +15,10 @@ export default Ember.Service.extend({
   handleResize({ width, height }) {
     this.set('width', width);
     this.set('height', height);
+  },
+
+  stubMediaFeatures(features) {
+    this.win.stubMediaFeatures(features);
   }
 });
 

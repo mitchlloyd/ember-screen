@@ -1,7 +1,10 @@
+import { matchQuery } from 'css-mediaquery';
+
 export default class {
   constructor() {
     this.listeners = [];
     this.resizeListener = this._windowDidResize.bind(this);
+    this.stubbedMediaFeatures = false;
     window.addEventListener('resize', this.resizeListener);
   }
 
@@ -13,13 +16,22 @@ export default class {
   }
 
   get dimensions() {
-    return this._dimensions || { width: window.innerWidth, height: window.innerHeight };
+    if (this.stubbedMediaFeatures) {
+      return {
+        width: this.stubbedMediaFeatures.width || window.innerWidth,
+        height: this.stubbedMediaFeatures.height || window.innerHeight
+      };
+    } else {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
+    }
   }
 
-  // For testing
-  set dimensions(dimensions) {
-    this._dimensions = dimensions;
-    this.listeners.forEach((l) => l(dimensions));
+  stubMediaFeatures(features) {
+    this.stubbedMediaFeatures = features;
+    this.resizeListener();
   }
 
   teardown() {
@@ -27,7 +39,11 @@ export default class {
   }
 
   matchesMediaQuery(query) {
-    return window.matchMedia(query).matches;
+    if (this.stubbedMediaFeatures) {
+      return matchQuery(query, this.stubbedMediaFeatures);
+    } else {
+      return window.matchMedia(query).matches;
+    }
   }
 
   _windowDidResize() {
