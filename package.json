@@ -1,6 +1,6 @@
 {
   "name": "ember-screen",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A screen size service for Ember",
   "directories": {
     "doc": "doc",
