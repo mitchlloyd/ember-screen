@@ -1,10 +1,15 @@
+/* globals FastBoot */
 import Ember from 'ember';
-import Window from 'ember-screen/window';
+import BrowserWindow from 'ember-screen/window/browser';
+import NullWindow from 'ember-screen/window/null';
+
+const isFastBoot = typeof FastBoot !== 'undefined';
+const WindowClass = isFastBoot ?  NullWindow : BrowserWindow;
 
 export default Ember.Service.extend({
   init() {
     this._super(...arguments);
-    this.win = new Window();
+    this.win = new WindowClass();
     this.win.onSizeUpdate(this.handleResize.bind(this));
   },
 
@@ -21,4 +26,3 @@ export default Ember.Service.extend({
     this.win.stubMediaFeatures(features);
   }
 });
-
