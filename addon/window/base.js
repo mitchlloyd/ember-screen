@@ -5,7 +5,6 @@ export default class {
     this.listeners = [];
     this.resizeListener = this._windowDidResize.bind(this);
     this.stubbedMediaFeatures = false;
-    window.addEventListener('resize', this.resizeListener);
   }
 
   onSizeUpdate(listener) {
@@ -18,13 +17,11 @@ export default class {
   get dimensions() {
     if (this.stubbedMediaFeatures) {
       return {
-        width: this.stubbedMediaFeatures.width || window.innerWidth,
-        height: this.stubbedMediaFeatures.height || window.innerHeight
+        width: this.stubbedMediaFeatures.width,
+        height: this.stubbedMediaFeatures.height
       };
     } else {
       return {
-        width: window.innerWidth,
-        height: window.innerHeight
       };
     }
   }
@@ -35,14 +32,13 @@ export default class {
   }
 
   teardown() {
-    window.removeEventListener('resize', this.resizeListener);
   }
 
   matchesMediaQuery(query) {
     if (this.stubbedMediaFeatures) {
       return matchQuery(query, this.stubbedMediaFeatures);
     } else {
-      return window.matchMedia(query).matches;
+      return false;
     }
   }
 
