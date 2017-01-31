@@ -93,6 +93,15 @@ This feature uses [css-mediaquery](https://github.com/ericf/css-mediaquery) to
 parse your configured `breakpoints` and see if they match with the stubbed
 values.
 
+## Running in FastBoot
+
+Ember screen is compatible with [FastBoot](https://ember-fastboot.com) out of the box. 
+However in a FastBoot environment running on a server there is no way to access
+the screen properties of the client. If your UI that is to be rendered in FastBoot is 
+dependent on the device's screen resolution, you can use the aforementioned  
+`stubMediaFeatures` method of the screen service to provide some defaults. 
+See this [simple example](fastboot-tests/fixtures/fastboot/app/instance-initializers/fastboot/stub-media.js) of a FastBoot-only instance initializer. 
+
 ## Running the Tests for this Addon
 
 Running tests that resize a web browser is challenging because web browsers
