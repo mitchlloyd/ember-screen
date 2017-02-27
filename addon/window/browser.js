@@ -1,9 +1,18 @@
-import Base from './base';
+import { matchQuery } from 'css-mediaquery';
 
-export default class extends Base {
+export default class {
   constructor() {
-    super();
+    this.listeners = [];
+    this.resizeListener = this._windowDidResize.bind(this);
+    this.stubbedMediaFeatures = false;
     window.addEventListener('resize', this.resizeListener);
+  }
+
+  onSizeUpdate(listener) {
+    // Immediately call the listener to set initial size
+    listener(this.dimensions);
+
+    this.listeners.push(listener);
   }
 
   get dimensions() {
@@ -20,16 +29,24 @@ export default class extends Base {
     }
   }
 
+  stubMediaFeatures(features) {
+    this.stubbedMediaFeatures = features;
+    this.resizeListener();
+  }
+
   teardown() {
     window.removeEventListener('resize', this.resizeListener);
   }
 
   matchesMediaQuery(query) {
     if (this.stubbedMediaFeatures) {
-      return super.matchesMediaQuery(query);
+      return matchQuery(query, this.stubbedMediaFeatures);
     } else {
       return window.matchMedia(query).matches;
     }
   }
 
+  _windowDidResize() {
+    this.listeners.forEach((l) => l(this.dimensions));
+  }
 }

@@ -1,13 +1,13 @@
 import Ember from 'ember';
 import BrowserWindow from 'ember-screen/window/browser';
-import MockWindow from 'ember-screen/window/mock';
+import NullWindow from 'ember-screen/window/null';
 
 const { computed, get, getOwner } = Ember;
 
 export default Ember.Service.extend({
   init() {
     this._super(...arguments);
-    let WindowClass = this.get('isFastBoot') ? MockWindow : BrowserWindow;
+    let WindowClass = this.get('isFastBoot') ? NullWindow : BrowserWindow;
     this.win = new WindowClass();
     this.win.onSizeUpdate(this.handleResize.bind(this));
   },
