@@ -1,4 +1,8 @@
-var expect = require('chai').expect;
+'use strict';
+/*jshint node:true*/
+/* global describe, it */
+const expect = require('chai').expect;
+const setupTest = require('ember-fastboot-addon-tests').setupTest;
 
 function serializeMediaQueries($) {
   let data = {};
@@ -11,13 +15,12 @@ function serializeMediaQueries($) {
 }
 
 describe('index', function() {
+  setupTest();
 
   it('renders', function() {
     return this.visit('/')
       .then(function(res) {
-        var $ = res.jQuery;
-        // var response = res.response;
-
+        let $ = res.jQuery;
         expect($('body').length).to.equal(1);
         expect($('h1').text().trim()).to.equal('ember-fastboot-addon-tests');
         expect($('#dimensions').length).to.equal(1);
@@ -28,9 +31,7 @@ describe('index', function() {
   it('can stub media features', function() {
     return this.visit('/')
       .then(function(res) {
-        var $ = res.jQuery;
-        // var response = res.response;
-
+        let $ = res.jQuery;
         expect($('#width').text().trim()).to.equal('900'); // see fixtures/fastboot/app/instance-initializers/fastboot/stub-media.js
         expect(serializeMediaQueries($)).to.deep.equal({
           isSmallAndUp: "true",

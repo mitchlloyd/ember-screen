@@ -97,9 +97,8 @@ values.
 
 Ember screen is compatible with [FastBoot](https://ember-fastboot.com) out of the box. 
 However in a FastBoot environment running on a server there is no way to access
-the screen properties of the client. If your UI that is to be rendered in FastBoot is 
-dependent on the device's screen resolution, you can use the aforementioned  
-`stubMediaFeatures` method of the screen service to provide some defaults. 
+the screen properties of the client. If your UI depends on the device's screen size then
+you can use the screen service's `stubMediaFeatures` method to provide defaults.
 See this [simple example](fastboot-tests/fixtures/fastboot/app/instance-initializers/fastboot/stub-media.js) of a FastBoot-only instance initializer. 
 
 ## Running the Tests for this Addon
