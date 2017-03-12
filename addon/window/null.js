@@ -1,9 +1,15 @@
 import { matchQuery } from 'css-mediaquery';
 
+const MOST_COMMON_SCREEN_SIZE = {
+  width: 1366,
+  height: 768,
+  type: 'screen'
+};
+
 export default class {
   constructor() {
     this.listeners = [];
-    this.stubbedMediaFeatures = {};
+    this.stubbedMediaFeatures = MOST_COMMON_SCREEN_SIZE;
   }
 
   onSizeUpdate(listener) {
