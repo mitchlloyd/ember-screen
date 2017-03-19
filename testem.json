@@ -10,7 +10,7 @@
       "protocol": "browser"
     }
   },
-
+  "browser_start_timeout": 120,
   "launch_in_ci": ["custom_chrome"],
   "launch_in_dev": ["custom_chrome"]
 }
