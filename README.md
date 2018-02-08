@@ -20,6 +20,7 @@ export default Ember.Component({
 
 ## Installation
 
+<<<<<<< HEAD
 ```
 ember install ember-screen
 ```
@@ -94,6 +95,11 @@ parse your configured `breakpoints` and see if they match with the stubbed
 values.
 
 ## Running in FastBoot
+=======
+* `git clone <repository-url>` this repository
+* `cd my-addon`
+* `npm install`
+>>>>>>> 0c7bc4a... message
 
 Ember screen is compatible with [FastBoot](https://ember-fastboot.com) out
 of the box. However in a FastBoot environment running on a server there is
