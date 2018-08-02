@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { settled } from '@ember/test-helpers';
 import { later } from '@ember/runloop';
 
