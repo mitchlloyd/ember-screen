@@ -1,5 +1,4 @@
-import Ember from 'ember';
-const { computed } = Ember;
+import { computed } from '@ember/object';
 
 export default function breakpoint(mediaQuery) {
   return computed('width', function() {
