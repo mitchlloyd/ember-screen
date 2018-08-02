@@ -1,7 +1,7 @@
-import { registerAsyncHelper } from '@ember/test';
+import { settled } from '@ember/test-helpers';
 import { later } from '@ember/runloop';
 
-export default registerAsyncHelper('waitForDimensions', function(app, _window, dimensions) {
+export default async function(_window, dimensions) {
   let { height: expectedHeight, width: expectedWidth } = dimensions;
   let tries = 0;
 
@@ -24,5 +24,5 @@ export default registerAsyncHelper('waitForDimensions', function(app, _window, d
 
   poll();
 
-  return wait();
-});
+ await settled();
+}

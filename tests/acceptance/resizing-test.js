@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
+import { waitForDimensions } from 'ember-screen/tests/helpers/wait-for-screen';
 
 module('Acceptance | resizing', function(hooks) {
   setupApplicationTest(hooks);
@@ -12,8 +13,8 @@ module('Acceptance | resizing', function(hooks) {
     this.popup.close();
   });
 
-  test('visiting /resizing', function(assert) {
-    waitForDimensions(this.popup, { width: "200", height: "100"});
+  test('visiting /resizing', async function(assert) {
+    await waitForDimensions(this.popup, { width: "200", height: "100"});
 
     assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
       isSmallAndUp: "false",
@@ -30,7 +31,7 @@ module('Acceptance | resizing', function(hooks) {
     // resizeBy is easier to work with than resizeTo
     this.popup.resizeBy(700, 400);
 
-    waitForDimensions(this.popup, { width: "900", height: "500" });
+    await waitForDimensions(this.popup, { width: "900", height: "500" });
 
     assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
       isSmallAndUp: "true",
