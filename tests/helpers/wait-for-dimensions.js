@@ -1,7 +1,7 @@
-import Ember from 'ember';
-const { later } = Ember.run;
+import { registerAsyncHelper } from '@ember/test';
+import { later } from '@ember/runloop';
 
-export default Ember.Test.registerAsyncHelper('waitForDimensions', function(app, _window, dimensions) {
+export default registerAsyncHelper('waitForDimensions', function(app, _window, dimensions) {
   let { height: expectedHeight, width: expectedWidth } = dimensions;
   let tries = 0;
 
