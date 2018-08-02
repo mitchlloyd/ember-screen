@@ -6,7 +6,7 @@ module('Acceptance | temp', function(hooks) {
   setupApplicationTest(hooks);
 
   test('forcing media features in an acceptance test', async function(assert) {
-    let screen = this.application.__container__.lookup('service:screen');
+    let screen = this.owner.lookup('service:screen');
     screen.stubMediaFeatures({ width: '1px' });
 
     await visit('/');
@@ -14,6 +14,6 @@ module('Acceptance | temp', function(hooks) {
     assert.ok(screen.get('isExtraSmallAndDown'), "Media is matched");
     screen.stubMediaFeatures({ width: '1000px' });
 
-    assert.ok(screen.get('isExtraSmallAndDown'), "Media is not matched");
+    assert.notOk(screen.get('isExtraSmallAndDown'), "Media is not matched");
   });
 });
