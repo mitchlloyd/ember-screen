@@ -1,19 +1,30 @@
-import { module, test } from 'qunit';
+import $ from 'jquery';
+import { module, test, skip } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
+import waitForWidth from 'dummy/tests/helpers/wait-for-width';
+
+const HEIGHT = 500;
+const isHeadlessChrome = /HeadlessChrome/.test(window.navigator.userAgent);
 
 module('Acceptance | resizing', function(hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(function() {
-    this.popup = window.open('/index.html', 'resizable', `resizable=yes,width=200,height=100`);
+    this.popup = window.open('/index.html?inTestPopup', 'resizable', `resizable=yes`);
   });
 
   hooks.afterEach(function() {
     this.popup.close();
   });
 
-  test('visiting /resizing', function(assert) {
-    waitForDimensions(this.popup, { width: "200", height: "100"});
+  if (isHeadlessChrome) {
+    skip('Skipping Chrome resizing integration test');
+    return;
+  }
+
+  test('visiting /resizing', async function(assert) {
+    this.popup.resizeTo(200, HEIGHT);
+    await waitForWidth(this.popup, 200);
 
     assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
       isSmallAndUp: "false",
@@ -27,10 +38,8 @@ module('Acceptance | resizing', function(hooks) {
       isLargeAndDown: "true"
     }, "Initial values are correct");
 
-    // resizeBy is easier to work with than resizeTo
-    this.popup.resizeBy(700, 400);
-
-    waitForDimensions(this.popup, { width: "900", height: "500" });
+    this.popup.resizeTo(900, HEIGHT);
+    await waitForWidth(this.popup, 900);
 
     assert.deepEqual(serializeMediaQueries($(this.popup.document)), {
       isSmallAndUp: "true",
