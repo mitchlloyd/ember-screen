@@ -1,12 +1,13 @@
+import $ from 'jquery';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { waitForDimensions } from 'ember-screen/tests/helpers/wait-for-screen';
+import waitForDimensions from 'dummy/tests/helpers/wait-for-dimensions';
 
 module('Acceptance | resizing', function(hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(function() {
-    this.popup = window.open('/index.html', 'resizable', `resizable=yes,width=200,height=100`);
+    this.popup = window.open('http://localhost:4200', 'resizable', `resizable=yes,width=200,height=100`);
   });
 
   hooks.afterEach(function() {
