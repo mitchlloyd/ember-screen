@@ -1,7 +1,8 @@
-import Ember from 'ember';
-const { later } = Ember.run;
+import $ from 'jquery';
+import { settled } from '@ember/test-helpers';
+import { later } from '@ember/runloop';
 
-export default Ember.Test.registerAsyncHelper('waitForDimensions', function(app, _window, dimensions) {
+export default async function(_window, dimensions) {
   let { height: expectedHeight, width: expectedWidth } = dimensions;
   let tries = 0;
 
@@ -24,5 +25,5 @@ export default Ember.Test.registerAsyncHelper('waitForDimensions', function(app,
 
   poll();
 
-  return wait();
-});
+ await settled();
+}

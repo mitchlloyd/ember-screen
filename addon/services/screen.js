@@ -1,12 +1,12 @@
 /* globals FastBoot */
-import Ember from 'ember';
+import Service from '@ember/service';
 import BrowserWindow from 'ember-screen/window/browser';
 import NullWindow from 'ember-screen/window/null';
 
 const isFastBoot = typeof FastBoot !== 'undefined';
 const WindowClass = isFastBoot ?  NullWindow : BrowserWindow;
 
-export default Ember.Service.extend({
+export default Service.extend({
   init() {
     this._super(...arguments);
     this.win = new WindowClass();
