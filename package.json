@@ -1,6 +1,6 @@
 {
   "name": "ember-screen",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "A screen size service for Ember",
   "scripts": {
     "build": "ember build",
