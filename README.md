@@ -78,7 +78,7 @@ to run tests that are integrated with your screen service logic.
 // An example acceptance test
 
 test('shows large logo on HD tv', function(assert) {
-  let screen = this.application.__container__.lookup('service:screen');
+  let screen = this.owner.lookup('service:screen');
   screen.stubMediaFeatures({ type: 'tv', width: 1920 });
 
   visit('/');
