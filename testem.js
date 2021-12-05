@@ -13,11 +13,17 @@ module.exports = {
         process.env.CI ? '--no-sandbox' : null,
         '--headless',
         '--disable-dev-shm-usage',
+        '--disable-popup-blocking',
         '--disable-software-rasterizer',
         '--mute-audio',
         '--remote-debugging-port=0',
         '--window-size=1440,900',
       ].filter(Boolean),
+      dev: [
+        '--disable-popup-blocking',
+        '--remote-debugging-port=0',
+        '--window-size=1440,900'
+      ]
     },
   },
 };

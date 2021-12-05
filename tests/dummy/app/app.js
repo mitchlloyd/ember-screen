@@ -8,14 +8,12 @@ export default class App extends Application {
   podModulePrefix = config.podModulePrefix;
   Resolver = Resolver;
 
-  init() {
-    // Let the tests override the autoboot config by passing a query param. This
-    // will allow us to test the running dummy app inside of a popup window.
-    if (location.search.includes('inTestPopup')) {
-      this.autoboot = true;
-    }
+  constructor(...args) {
+    super(...args);
 
-    this._super(...arguments);
+    // Make the application available so that we can call .visit('/') on it in a
+    // popup.
+    window.DummyApplication = this;
   }
 }
 
