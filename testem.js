@@ -11,7 +11,6 @@ module.exports = {
       ci: [
         // --no-sandbox is needed when running Chrome inside a container
         process.env.CI ? '--no-sandbox' : null,
-        '--headless',
         '--disable-dev-shm-usage',
         '--disable-popup-blocking',
         '--disable-software-rasterizer',
@@ -23,7 +22,7 @@ module.exports = {
         '--disable-popup-blocking',
         '--remote-debugging-port=0',
         '--window-size=1440,900'
-      ]
+      ],
     },
   },
 };
