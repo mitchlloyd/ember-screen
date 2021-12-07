@@ -30,6 +30,8 @@ jobs:
       run: npm ci
     - name: Install xvfb for running headful Chrome
       run: sudo apt-get install xvfb
+    - name: Lint
+      run: npm run lint
     - name: Run Tests
       run: xvfb-run --auto-servernum npm test
 

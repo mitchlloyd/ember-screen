@@ -9,5 +9,5 @@ export default EmberScreen.extend({
   isExtraSmallAndDown: breakpoint('(max-width: 33.9999em)'),
   isSmallAndDown: breakpoint('(max-width: 47.9999em)'),
   isMediumAndDown: breakpoint('(max-width: 61.9999em)'),
-  isLargeAndDown: breakpoint('(max-width: 74.9999em)')
+  isLargeAndDown: breakpoint('(max-width: 74.9999em)'),
 });

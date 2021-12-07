@@ -1,10 +1,10 @@
 import { settled } from '@ember/test-helpers';
 import { later } from '@ember/runloop';
 
-export default async function(_window, expectedWidth) {
+export default async function (_window, expectedWidth) {
   let tries = 0;
 
-  let poll = function() {
+  let poll = function () {
     let doc = _window.document;
     const width = Number(doc.getElementById('width')?.textContent.trim());
 
