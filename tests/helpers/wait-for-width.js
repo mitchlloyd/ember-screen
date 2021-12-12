@@ -1,13 +1,12 @@
-import $ from 'jquery';
 import { settled } from '@ember/test-helpers';
 import { later } from '@ember/runloop';
 
-export default async function(_window, expectedWidth) {
+export default async function (_window, expectedWidth) {
   let tries = 0;
 
-  let poll = function() {
-    let doc = $(_window.document);
-    let width = Number(doc.find('#width').text().trim());
+  let poll = function () {
+    let doc = _window.document;
+    const width = Number(doc.getElementById('width')?.textContent.trim());
 
     if (width === expectedWidth) {
       return width;

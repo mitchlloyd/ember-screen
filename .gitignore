@@ -9,13 +9,15 @@
 /node_modules/
 
 # misc
+/.env*
+/.pnp*
 /.sass-cache
+/.eslintcache
 /connect.lock
 /coverage/
 /libpeerconnection.log
 /npm-debug.log*
 /testem.log
-/yarn-error.log
 
 # ember-try
 /.node_modules.ember-try/

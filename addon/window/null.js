@@ -3,7 +3,7 @@ import { matchQuery } from 'css-mediaquery';
 const MOST_COMMON_SCREEN_SIZE = {
   width: 1366,
   height: 768,
-  type: 'screen'
+  type: 'screen',
 };
 
 export default class {
@@ -22,7 +22,7 @@ export default class {
   get dimensions() {
     return {
       width: this.stubbedMediaFeatures.width,
-      height: this.stubbedMediaFeatures.height
+      height: this.stubbedMediaFeatures.height,
     };
   }
 

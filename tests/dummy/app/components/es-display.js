@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-export default Component.extend({
-  screen: service()
-});
+export default class EsDisplay extends Component {
+  @service screen;
+}

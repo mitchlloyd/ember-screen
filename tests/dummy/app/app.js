@@ -1,24 +1,20 @@
 import Application from '@ember/application';
-import Resolver from './resolver';
+import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
-import config from './config/environment';
+import config from 'dummy/config/environment';
 
-const App = Application.extend({
-  modulePrefix: config.modulePrefix,
-  podModulePrefix: config.podModulePrefix,
-  Resolver,
+export default class App extends Application {
+  modulePrefix = config.modulePrefix;
+  podModulePrefix = config.podModulePrefix;
+  Resolver = Resolver;
 
-  init() {
-    // Let the tests override the autoboot config by passing a query param. This
-    // will allow us to test the running dummy app inside of a popup window.
-    if (location.search.includes('inTestPopup')) {
-      this.autoboot = true;
-    }
+  constructor(...args) {
+    super(...args);
 
-    this._super(...arguments);
+    // Make the application available so that we can call .visit('/') on it in a
+    // popup.
+    window.DummyApplication = this;
   }
-});
+}
 
 loadInitializers(App, config.modulePrefix);
-
-export default App;

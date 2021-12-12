@@ -19,12 +19,12 @@ export default class {
     if (this.stubbedMediaFeatures) {
       return {
         width: this.stubbedMediaFeatures.width || window.innerWidth,
-        height: this.stubbedMediaFeatures.height || window.innerHeight
+        height: this.stubbedMediaFeatures.height || window.innerHeight,
       };
     } else {
       return {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       };
     }
   }
