@@ -25,8 +25,13 @@
 /ember-cli-build.js
 /testem.js
 /tests/
+/fastboot-tests/
 /package-lock.json
 .gitkeep
+
+# CI
+/.github/
+.tool-versions
 
 # ember-try
 /.node_modules.ember-try/
