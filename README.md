@@ -6,16 +6,16 @@ This addon adds a `screen` service to your Ember application that will report
 the current height and width of the window.
 
 ```javascript
-import Ember from 'ember';
-const { Component, computed, inject } = Ember;
+import Component from '@glimmer/component';
+import { service } from '@ember/service';
 
-export default Ember.Component({
-  screen: inject.service(),
+export default class ExampleComponent extends Component {
+  @service screen;
 
-  showTopNavigation: computed('screen.width', function() {
-    return this.get('screen.width') > 1000;
-  })
-})
+  get showTopNavigation() {
+    return this.screen.width > 1_000;
+  }
+}
 ```
 
 ## Installation
@@ -33,24 +33,24 @@ This is the default implementation of `app/services/screen.js`.
 ```javascript
 import EmberScreen, { breakpoint } from 'ember-screen';
 
-export default EmberScreen.extend({
-  isSmallAndUp: breakpoint('(min-width: 34em)'),
-  isMediumAndUp: breakpoint('(min-width: 48em)'),
-  isLargeAndUp: breakpoint('(min-width: 62em)'),
-  isExtraLargeAndUp: breakpoint('(min-width: 75em)'),
+export default class ScreenService extends EmberScreen {
+  @breakpoint('(min-width: 34em)') isSmallAndUp;
+  @breakpoint('(min-width: 48em)') isMediumAndUp;
+  @breakpoint('(min-width: 62em)') isLargeAndUp;
+  @breakpoint('(min-width: 75em)') isExtraLargeAndUp;
 
-  isExtraSmallAndDown: breakpoint('(max-width: 33.9999em)'),
-  isSmallAndDown: breakpoint('(max-width: 47.9999em)'),
-  isMediumAndDown: breakpoint('(max-width: 61.9999em)'),
-  isLargeAndDown: breakpoint('(max-width: 74.9999em)')
-});
+  @breakpoint('(max-width: 33.9999em)') isExtraSmallAndDown;
+  @breakpoint('(max-width: 47.9999em)') isSmallAndDown;
+  @breakpoint('(max-width: 61.9999em)') isMediumAndDown;
+  @breakpoint('(max-width: 74.9999em') isLargeAndDown;
+}
 ```
 
 If you inject `screen` into a component, you could use a media query property
 like this:
 
 ```handlebars
-{{#if screen.isSmallAndDown}}
+{{#if this.screen.isSmallAndDown}}
   ☰ <!-- obligatory hamburger -->
 {{/if}}
 ```
@@ -61,10 +61,10 @@ in your application and extend from the Ember Screen service.
 ```javascript
 import EmberScreen, { breakpoint } from 'ember-screen';
 
-export default EmberScreen.extend({
-  isMobile: breakpoint('(max-width: 479px)'),
-  isDesktop: breakpoint('(min-width: 480px)')
-});
+export default class ScreenService extends EmberScreen {
+  @breakpoint('(max-width: 479px)') isMobile;
+  @breakpoint('(min-width: 480px)') isDesktop;
+}
 ```
 
 ## Testing Media Queries
@@ -77,15 +77,13 @@ to run tests that are integrated with your screen service logic.
 ```javascript
 // An example acceptance test
 
-test('shows large logo on HD tv', function(assert) {
+test('shows large logo on HD tv', async function(assert) {
   let screen = this.owner.lookup('service:screen');
   screen.stubMediaFeatures({ type: 'tv', width: 1920 });
 
-  visit('/');
+  await visit('/');
 
-  andThen(function() {
-    assert.equal(find('.logo-large').length, 1, "HD TVs have large logo");
-  });
+  assert.dom('.logo-large').exists('HD TVs have large logo');
 });
 ```
 
