@@ -3,9 +3,11 @@ import EmberScreen, { breakpoint } from 'ember-screen';
 
 module('Unit | Service | force-media-features', function () {
   test('it lets users force specific media features for testing', function (assert) {
-    let screen = EmberScreen.extend({
-      is4KTV: breakpoint('tv and (min-width: 3840px)'),
-    }).create();
+    class ScreenService extends EmberScreen {
+      @breakpoint('tv and (min-width: 3840px)') is4KTV;
+    }
+
+    let screen = new ScreenService();
 
     assert.notOk(
       screen.get('is4KTV'),
